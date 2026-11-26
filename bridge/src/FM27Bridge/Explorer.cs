@@ -15,11 +15,15 @@ namespace FM27Bridge
     {
         public static string Run(out string summary)
         {
-            var sb = new StringBuilder();
+            var dir = Path.Combine(BepInEx.Paths.PluginPath, "FM27AnalystBridge");
+            Directory.CreateDirectory(dir);
+            var file = Path.Combine(dir, "engine-registry.txt");
+            // Пишем по ходу (AutoFlush): если движок всё же уронит игру, в файле будет видно, на каком типе.
+            using var sb = new StreamWriter(file, false, new UTF8Encoding(false)) { AutoFlush = true };
             var refsTotal = 0;
             var propsTotal = 0;
             var errors = 0;
-            sb.AppendLine($"# FM27 engine registry — {DateTime.Now:yyyy-MM-dd HH:mm:ss}, game {UnityEngine.Application.version}");
+            sb.WriteLine($"# FM27 engine registry — {DateTime.Now:yyyy-MM-dd HH:mm:ss}, game {UnityEngine.Application.version}");
 
             var refs = ReferenceIdentifierSet.Instance;
             var ordered = new List<(uint id, ReferenceIDInfo info)>();
@@ -30,10 +34,15 @@ namespace FM27Bridge
             foreach (var (id, info) in ordered)
             {
                 refsTotal++;
-                string instance;
-                try { instance = info.GetInstance() != null ? " [singleton]" : ""; }
-                catch { instance = ""; }
-                sb.AppendLine($"\nREF {id} {SafeName(info)}{instance}");
+                // Функции справочника — указатели в нативный код. Пустой указатель вызывать нельзя:
+                // это AccessViolation, который .NET не перехватывает (игра закрывается).
+                IntPtr fInstance = IntPtr.Zero, fProps = IntPtr.Zero, fType = IntPtr.Zero;
+                try { fInstance = info.GetInstanceFunc; fProps = info.GetPropertiesFunc; fType = info.GetPropertyTypeFunc; }
+                catch { }
+                sb.WriteLine($"\nREF {id} {SafeName(info)}{(fInstance != IntPtr.Zero ? " [instance]" : "")}" +
+                             $"{(fProps == IntPtr.Zero ? " [no-props-func]" : "")}{(fType == IntPtr.Zero ? " [no-type-func]" : "")}");
+                if (fProps == IntPtr.Zero)
+                    continue;
                 var list = new Il2CppSystem.Collections.Generic.List<PropertyID>();
                 try
                 {
@@ -42,7 +51,7 @@ namespace FM27Bridge
                 catch (Exception ex)
                 {
                     errors++;
-                    sb.AppendLine("  ! GetProperties: " + ex.Message);
+                    sb.WriteLine("  ! GetProperties: " + ex.Message);
                     continue;
                 }
                 var lines = new List<string>();
@@ -52,6 +61,11 @@ namespace FM27Bridge
                     try
                     {
                         var name = IdentifierUtils.GetName<PropertyID>(p);
+                        if (fType == IntPtr.Zero)
+                        {
+                            lines.Add($"  {name}");
+                            continue;
+                        }
                         var kind = info.GetPropertyType(p);
                         var target = "";
                         try
@@ -75,17 +89,19 @@ namespace FM27Bridge
                 }
                 lines.Sort(StringComparer.Ordinal);
                 foreach (var l in lines)
-                    sb.AppendLine(l);
+                    sb.WriteLine(l);
             }
 
             var props = PropertyIdentifierSet.Instance;
-            sb.AppendLine($"\n# all property names: {props.m_idToInfo.Count}");
+            sb.WriteLine($"\n# all property names: {props.m_idToInfo.Count}");
+            foreach (var kv in props.m_idToInfo)
+            {
+                try { sb.WriteLine($"P {kv.Key} {kv.Value.Name}"); }
+                catch { }
+            }
+            sb.WriteLine("# done");
 
             summary = $"типов: {refsTotal}, свойств: {propsTotal}, ошибок: {errors}";
-            var dir = Path.Combine(BepInEx.Paths.PluginPath, "FM27AnalystBridge");
-            Directory.CreateDirectory(dir);
-            var file = Path.Combine(dir, "engine-registry.txt");
-            File.WriteAllText(file, sb.ToString(), new UTF8Encoding(false));
             return file;
         }
 
