@@ -12,7 +12,7 @@ namespace FM27Bridge
     {
         public const string Guid = "local.fm27analyst.bridge";
         public const string Name = "FM27 Analyst Bridge";
-        public const string Version = "0.1.1";
+        public const string Version = "0.2.0";
 
         internal static ManualLogSource Logger { get; private set; } = null!;
         internal static ConfigEntry<string> CoreUrl { get; private set; } = null!;

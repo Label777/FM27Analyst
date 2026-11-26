@@ -123,6 +123,13 @@ namespace FM27Bridge
                     }
                     client.Send("api/bridge/tables", list);
                     break;
+                case "explore":
+                    Show("FM27 Analyst: разведка движка…", 3f);
+                    var file = Explorer.Run(out var summary);
+                    Plugin.Logger.LogInfo($"Справочник движка ({summary}) → {file}");
+                    client.Send("api/bridge/result", new ResultPayload { CommandId = cmd.Id, Ok = true, Message = $"Справочник движка: {summary}", Detail = file });
+                    Show("FM27 Analyst: справочник движка сохранён.", MessageSeconds);
+                    break;
                 default:
                     client.Send("api/bridge/result", new ResultPayload
                     {

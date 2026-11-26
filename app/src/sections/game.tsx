@@ -106,6 +106,10 @@ export function GameSection() {
               <button className="btn" onClick={() => bridgeActions.request("screen")} title="Все тексты на экране игры — для разбора матча и настройки">
                 Снять тексты экрана
               </button>
+              <button className="btn btn--ghost" onClick={() => bridgeActions.request("explore")}
+                title="Для разработки: выгрузить справочник типов данных движка FM27 (что можно читать из базы)">
+                Разведка движка
+              </button>
             </div>
             {s.bridgeNote && <div className="toast toast--info" onClick={bridgeActions.clearNote}>Игра: {s.bridgeNote}</div>}
             {b && b.tables_on_screen.length > 0 && (

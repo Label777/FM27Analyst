@@ -223,3 +223,12 @@ namespace UnityEngine.UIElements
         public static Il2CppSystem.Collections.Generic.List<Panel> GetSortedPlayerPanels() => null!;
     }
 }
+
+namespace FM27Bridge
+{
+    // Explorer.cs использует API движка (SI.Bindable) — в проверке без игры он заменён заглушкой.
+    internal static class Explorer
+    {
+        public static string Run(out string summary) { summary = ""; return ""; }
+    }
+}

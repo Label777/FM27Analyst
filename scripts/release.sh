@@ -22,7 +22,7 @@ fi
 (cd core && python3 -m pytest -q)
 (cd app && npx tsc --noEmit -p .)
 git add -A
-git commit -m "Релиз $V"
+git commit -m "Релиз $V" -m "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>" -m "Claude-Session: https://claude.ai/code/session_018hCavAf3dp31UifaevxR8W"
 git push origin main
 # Сборку запускаем вручную (workflow_dispatch): тег v$V создаст сам шаг «Релиз».
 gh api -X POST repos/Label777/FM27Analyst/actions/workflows/release.yml/dispatches -f ref=main

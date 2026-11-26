@@ -73,7 +73,7 @@ export const api = {
   updateInstall: () => post<{ ok: boolean; version: string }>("/api/app/update/install"),
   // --- мост с игрой (плагин FM27 Analyst Bridge) ---
   bridgeStatus: () => call<import("./types").BridgeStatus>("/api/bridge/status"),
-  bridgeRequest: (type: "grab_table" | "screen" | "tables", table_index?: number) =>
+  bridgeRequest: (type: "grab_table" | "screen" | "tables" | "explore", table_index?: number) =>
     post<{ id: string; status: string }>("/api/bridge/request", { type, table_index }),
   bridgeAuto: (enabled: boolean, interval_sec = 3) => post<import("./types").BridgeStatus>("/api/bridge/auto", { enabled, interval_sec }),
   bridgeImport: (scope: "own" | "market" | "opp", opponent?: string, replace?: boolean) =>

@@ -10,7 +10,7 @@
     <NoWarn>CS8602;CS8600;CS8603;CS8604</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="../../src/FM27Bridge/*.cs" LinkBase="Bridge" />
+    <Compile Include="../../src/FM27Bridge/*.cs" Exclude="../../src/FM27Bridge/Explorer.cs" LinkBase="Bridge" />
     <Compile Include="../../src/FM27Bridge.Core/*.cs" LinkBase="Core" />
     <Compile Include="../../vendor/fm27-exporter/Core/*.cs" Exclude="../../vendor/fm27-exporter/Core/*Writer.cs" LinkBase="Vendor/Core" />
     <Compile Include="../../vendor/fm27-exporter/Plugin/*.cs" LinkBase="Vendor/Plugin" />

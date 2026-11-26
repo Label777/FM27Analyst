@@ -119,7 +119,7 @@ function handle(type: string, data: any) {
       if (state.bridge) set({ bridge: { ...state.bridge, last_screen: data, online: true } });
       break;
     case "bridge_result":
-      if (!data.ok) set({ bridgeNote: data.message });
+      set({ bridgeNote: data.message });
       break;
   }
 }
@@ -163,7 +163,7 @@ setInterval(() => {
 }, 5000);
 
 export const bridgeActions = {
-  request: async (type: "grab_table" | "screen" | "tables") => {
+  request: async (type: "grab_table" | "screen" | "tables" | "explore") => {
     set({ bridgeNote: null });
     return guard(api.bridgeRequest(type));
   },
