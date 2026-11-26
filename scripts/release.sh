@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Новый релиз FM27 Analyst: версия во всех местах, плагин в ядре, тег → GitHub Actions собирает установщик.
+# Новый релиз FM27 Analyst: версия во всех местах, плагин в ядре, запуск сборки установщика в GitHub Actions.
 #   scripts/release.sh 0.2.1                         — без пересборки плагина
 #   GAME="<папка FM27 с BepInEx>" scripts/release.sh 0.2.1 — с пересборкой плагина под файлы игры
 set -euo pipefail
@@ -23,6 +23,7 @@ fi
 (cd app && npx tsc --noEmit -p .)
 git add -A
 git commit -m "Релиз $V"
-git tag "v$V"
-git push origin main "v$V"
-echo "Тег v$V отправлен: установщик соберёт GitHub Actions (вкладка Actions → release)."
+git push origin main
+# Сборку запускаем вручную (workflow_dispatch): тег v$V создаст сам шаг «Релиз».
+gh api -X POST repos/Label777/FM27Analyst/actions/workflows/release.yml/dispatches -f ref=main
+echo "Сборка v$V запущена: GitHub → Actions → release."

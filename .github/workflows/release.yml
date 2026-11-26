@@ -10,6 +10,10 @@ on:
 permissions:
   contents: write
 
+env:
+  PYTHONUTF8: "1"   # исходники и конфиги в UTF-8 (по умолчанию на Windows — cp1252)
+  PYTHONIOENCODING: "utf-8"
+
 jobs:
   windows:
     runs-on: windows-latest
@@ -37,8 +41,8 @@ jobs:
 
       - name: Проверка версий
         run: |
-          V=$(python -c "import json;print(json.load(open('app/src-tauri/tauri.conf.json'))['version'])")
-          C=$(python -c "import re;print(re.search(r'__version__ = \"(.+?)\"', open('core/fm27_analyst/__init__.py').read()).group(1))")
+          V=$(python -c "import json;print(json.load(open('app/src-tauri/tauri.conf.json', encoding='utf-8'))['version'])")
+          C=$(python -c "import re;print(re.search(r'__version__ = \"(.+?)\"', open('core/fm27_analyst/__init__.py', encoding='utf-8').read()).group(1))")
           echo "app=$V core=$C ref=$GITHUB_REF_NAME"
           test "$V" = "$C"
           if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then test "v$V" = "$GITHUB_REF_NAME"; fi

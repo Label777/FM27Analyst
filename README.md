@@ -108,5 +108,5 @@ tools/collect_screens.py     сбор датасета скриншотов
 
 - При запуске ядро само ставит/обновляет плагин FM27 Analyst Bridge в найденной FM27 (`BepInEx/plugins`), если игра закрыта.
 - Новая версия на GitHub → вверху приложения кнопка «Обновить»: скачивается и запускается установщик.
-- Релиз: `GAME="<папка FM27 с BepInEx>" scripts/release.sh 0.2.1` → тег `v0.2.1` → GitHub Actions (`.github/workflows/release.yml`)
+- Релиз: `GAME="<папка FM27 с BepInEx>" scripts/release.sh 0.2.1` → GitHub Actions (`.github/workflows/release.yml`)
   собирает установщик на Windows, проверяет собранное ядро и публикует релиз.
