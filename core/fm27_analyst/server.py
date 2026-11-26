@@ -272,6 +272,48 @@ def create_app(data_dir: Path | None = None, reasoner: Reasoner | None = None) -
         finally:
             hub.clients.discard(sock)
 
+    # --- приложение: версия, плагин в игре, обновления ---
+    from . import plugin_install, updater
+
+    app.state.plugin = None
+
+    def install_plugin() -> None:
+        try:
+            app.state.plugin = plugin_install.ensure_plugin().as_dict()
+        except Exception as e:  # установка плагина не должна мешать работе помощника
+            app.state.plugin = {"bundled": False, "games": [], "note": f"Ошибка установки плагина: {e}"}
+
+    if os.environ.get("FM27_NO_PLUGIN_INSTALL") != "1":
+        import threading
+
+        threading.Thread(target=install_plugin, daemon=True, name="plugin-install").start()
+
+    @app.get("/api/app/info")
+    def app_info() -> dict:
+        return {"version": __version__, "plugin": app.state.plugin}
+
+    @app.post("/api/app/plugin/install")
+    def app_plugin_install() -> dict:
+        install_plugin()
+        return app.state.plugin
+
+    @app.get("/api/app/update")
+    def app_update() -> dict:
+        from dataclasses import asdict
+
+        return asdict(updater.check())
+
+    @app.post("/api/app/update/install")
+    def app_update_install() -> dict:
+        info = updater.check()
+        if not info.available or not info.url:
+            raise HTTPException(409, "Новой версии нет" if not info.error else f"Не удалось проверить: {info.error}")
+        try:
+            path = updater.download_and_run(info.url)
+        except Exception as e:
+            raise HTTPException(502, f"Не удалось скачать установщик: {e}") from e
+        return {"ok": True, "version": info.latest, "installer": str(path)}
+
     # Интерфейс в браузере (без сборки Tauri): папка web рядом с ядром или FM27_WEB_DIR.
     web = Path(os.environ["FM27_WEB_DIR"]) if os.environ.get("FM27_WEB_DIR") else None
     if web and (web / "index.html").exists():

@@ -30,7 +30,7 @@ build-backend = "setuptools.build_meta"
 include = ["fm27_analyst*"]
 
 [tool.setuptools.package-data]
-fm27_analyst = ["data/*.json"]
+fm27_analyst = ["data/*.json", "data/plugin/*.dll"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

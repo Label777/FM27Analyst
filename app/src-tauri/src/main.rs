@@ -33,21 +33,33 @@ fn hide_main_window(app: AppHandle) -> Result<(), String> {
     main.hide().map_err(|e| e.to_string())
 }
 
-/// Запуск ядра: FM27_CORE_CMD (для разработки) или fm27-core.exe рядом с приложением.
-fn spawn_core() -> Option<Child> {
+/// Запуск ядра: FM27_CORE_CMD (для разработки) или fm27-core.exe из установки
+/// (папка ресурсов fm27-core/ — сборка PyInstaller в режиме onedir, один процесс:
+/// при выходе из приложения он гарантированно завершается вместе с ним).
+fn spawn_core(app: &AppHandle) -> Option<Child> {
     let mut cmd = if let Ok(custom) = std::env::var("FM27_CORE_CMD") {
         let mut parts = custom.split_whitespace();
         let mut c = Command::new(parts.next()?);
         c.args(parts);
         c
     } else {
-        let exe = std::env::current_exe().ok()?;
         let name = if cfg!(windows) { "fm27-core.exe" } else { "fm27-core" };
-        let path = exe.parent()?.join(name);
-        if !path.exists() {
-            eprintln!("[fm27] ядро не найдено ({}), запустите его вручную", path.display());
-            return None;
+        let mut candidates = Vec::new();
+        if let Ok(res) = app.path().resource_dir() {
+            candidates.push(res.join("fm27-core").join(name));
+            candidates.push(res.join(name));
         }
+        if let Some(dir) = std::env::current_exe().ok().and_then(|e| e.parent().map(|p| p.to_path_buf())) {
+            candidates.push(dir.join("fm27-core").join(name));
+            candidates.push(dir.join(name));
+        }
+        let path = match candidates.into_iter().find(|p| p.exists()) {
+            Some(p) => p,
+            None => {
+                eprintln!("[fm27] ядро fm27-core не найдено рядом с приложением");
+                return None;
+            }
+        };
         Command::new(path)
     };
     cmd.args(["--port", "8727"]);
@@ -70,7 +82,7 @@ fn main() {
     let app = tauri::Builder::default()
         .manage(Core(Mutex::new(None)))
         .setup(|app| {
-            let child = spawn_core();
+            let child = spawn_core(app.handle());
             *app.state::<Core>().0.lock().unwrap() = child;
             Ok(())
         })

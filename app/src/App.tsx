@@ -11,6 +11,7 @@ import {
   DeptChatSection, DirectorSection, FinanceSection, HomeSection, ReconSection, SeasonSection, YouthSection,
 } from "./sections/departments";
 import { GameSection } from "./sections/game";
+import { UpdateBanner } from "./components/UpdateBanner";
 
 const VIEWS: Record<SectionId, () => JSX.Element> = {
   game: GameSection,
@@ -107,6 +108,7 @@ export default function App() {
           </div>
         </nav>
         <main className="main">
+          <UpdateBanner />
           {s.error && (
             <div className="toast" onClick={actions.clearError}>{s.error}</div>
           )}

@@ -1,0 +1,86 @@
+# Сборка установщика FM27 Analyst для Windows и публикация релиза.
+# Запуск: тег vX.Y.Z (git tag v0.2.0 && git push origin v0.2.0) или вручную из вкладки Actions.
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: app/src-tauri
+
+      - name: Проверка версий
+        run: |
+          V=$(python -c "import json;print(json.load(open('app/src-tauri/tauri.conf.json'))['version'])")
+          C=$(python -c "import re;print(re.search(r'__version__ = \"(.+?)\"', open('core/fm27_analyst/__init__.py').read()).group(1))")
+          echo "app=$V core=$C ref=$GITHUB_REF_NAME"
+          test "$V" = "$C"
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then test "v$V" = "$GITHUB_REF_NAME"; fi
+          echo "VERSION=$V" >> $GITHUB_ENV
+
+      - name: Тесты ядра
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e "core[dev]" pyinstaller
+          python -m pip install "mss>=9.0" "windows-capture>=1.4" "pygetwindow>=0.0.9" || echo "захват экрана не установлен — кнопка «Анализ экрана» будет недоступна"
+          cd core && python -m pytest -q
+
+      - name: Ядро → fm27-core (PyInstaller, onedir)
+        run: |
+          python -m PyInstaller --noconfirm --onedir --name fm27-core \
+            --collect-data fm27_analyst --collect-submodules uvicorn --collect-submodules fm27_analyst \
+            --distpath build/core --workpath build/pyi --specpath build core/run_core.py
+
+      - name: Проверка собранного ядра
+        run: |
+          build/core/fm27-core/fm27-core.exe --port 8799 --data-dir build/smoke &
+          for i in $(seq 1 40); do
+            if curl -sf http://127.0.0.1:8799/api/health; then echo; break; fi
+            sleep 1
+          done
+          INFO=$(curl -sf http://127.0.0.1:8799/api/app/info)
+          echo "$INFO"
+          echo "$INFO" | grep -q '"bundled":true'   # плагин для игры внутри сборки
+          curl -sf http://127.0.0.1:8799/api/bridge/status > /dev/null
+          taskkill //IM fm27-core.exe //F || true
+
+      - name: Интерфейс и установщик (Tauri, NSIS)
+        working-directory: app
+        run: |
+          npm ci
+          npx tauri build --config '{"bundle":{"resources":{"../../build/core/fm27-core/":"fm27-core/"}}}'
+
+      - name: Релиз
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.VERSION }}
+          name: FM27 Analyst ${{ env.VERSION }}
+          body_path: RELEASE_NOTES.md
+          files: app/src-tauri/target/release/bundle/nsis/*-setup.exe
+          fail_on_unmatched_files: true

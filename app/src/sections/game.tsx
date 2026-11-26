@@ -34,7 +34,16 @@ export function GameSection() {
   const [screen, setScreen] = useState<any>(null);
   const [showTexts, setShowTexts] = useState(false);
 
-  useEffect(() => { refreshBridge(); }, []);
+  const [plugin, setPlugin] = useState<any>(null);
+  const [version, setVersion] = useState<string | null>(null);
+  useEffect(() => {
+    refreshBridge();
+    const load = () => api.appInfo().then((i) => { setVersion(i.version); setPlugin(i.plugin); }).catch(() => {});
+    load();
+    const t = setTimeout(load, 3000); // установка плагина идёт в фоне при старте ядра
+    return () => clearTimeout(t);
+  }, []);
+  const reinstall = async () => setPlugin(await api.pluginInstall().catch(() => plugin));
   const t = b?.last_table;
   useEffect(() => { setResult(null); setErr(null); setReplace(null); }, [t?.id]);
 
@@ -68,9 +77,21 @@ export function GameSection() {
         </div>
         {!online && (
           <div className="muted small" style={{ marginTop: 10 }}>
-            <p>Чтобы помощник видел игру, в FM27 должен быть установлен плагин <b>FM27 Analyst Bridge</b> (работает через BepInEx).
-              Плагин только читает то, что видно на экране, и передаёт это сюда — в игре он ничего не нажимает и не меняет.</p>
-            <p>Если плагин установлен: запустите игру — статус сменится сам. {b?.last_seen ? `Последний сигнал: ${ago(b.last_seen)}.` : ""}</p>
+            <p>Помощник видит игру через плагин <b>FM27 Analyst Bridge</b> (работает через BepInEx) и сам ставит его в FM27 при запуске.
+              Плагин только читает то, что видно на экране, — в игре он ничего не нажимает и не меняет.</p>
+            <p>Запустите игру — статус сменится сам. {b?.last_seen ? `Последний сигнал: ${ago(b.last_seen)}.` : ""}</p>
+          </div>
+        )}
+        {plugin && (
+          <div className="small" style={{ marginTop: 8 }}>
+            {plugin.games?.map((g: any, i: number) => (
+              <p key={i} style={{ margin: "2px 0", color: g.plugin === "outdated_locked" || g.plugin === "no_bepinex" || g.plugin === "error" ? "var(--warn)" : undefined }}>
+                Плагин в «{g.path.split(/[\\/]/).pop()}»: {g.message}
+              </p>
+            ))}
+            {plugin.note && <p className="muted" style={{ margin: "2px 0" }}>{plugin.note}</p>}
+            <button className="btn btn--xs btn--ghost" onClick={reinstall}>Проверить плагин ещё раз</button>
+            {version && <span className="muted"> · FM27 Analyst {version}</span>}
           </div>
         )}
         {online && (

@@ -66,6 +66,11 @@ export const api = {
   season: () => call<any>("/api/season/report"),
   seasonDemo: () => post<any>("/api/season/demo"),
   seasonResult: (r: any) => post<any>("/api/season/result", r),
+  // --- приложение ---
+  appInfo: () => call<{ version: string; plugin: any }>("/api/app/info"),
+  pluginInstall: () => post<any>("/api/app/plugin/install"),
+  updateCheck: () => call<{ current: string; latest: string | null; available: boolean; notes: string; error: string | null }>("/api/app/update"),
+  updateInstall: () => post<{ ok: boolean; version: string }>("/api/app/update/install"),
   // --- мост с игрой (плагин FM27 Analyst Bridge) ---
   bridgeStatus: () => call<import("./types").BridgeStatus>("/api/bridge/status"),
   bridgeRequest: (type: "grab_table" | "screen" | "tables", table_index?: number) =>

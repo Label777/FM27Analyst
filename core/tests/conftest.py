@@ -1,6 +1,11 @@
 from __future__ import annotations
 
+import os
+
 import pytest
+
+# Тесты не должны искать игру и ставить плагин на машине разработчика.
+os.environ.setdefault("FM27_NO_PLUGIN_INSTALL", "1")
 
 from fm27_analyst.models import Fatigue, PlayerState, Snapshot, TeamState, TeamStats
 
