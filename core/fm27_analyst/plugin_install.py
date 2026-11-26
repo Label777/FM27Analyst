@@ -46,6 +46,16 @@ def bundled_plugin() -> Path | None:
         return None
 
 
+def _ver(text: str | None) -> tuple[int, ...]:
+    nums = re.findall(r"\d+", text or "")
+    return tuple(int(n) for n in nums[:3]) if nums else (0,)
+
+
+def bundled_version(plugin: Path) -> str | None:
+    f = plugin.parent / "VERSION"
+    return f.read_text(encoding="utf-8").strip() if f.exists() else None
+
+
 def _sha(p: Path) -> str:
     return hashlib.sha256(p.read_bytes()).hexdigest()
 
@@ -100,12 +110,20 @@ def ensure_plugin(games: list[Path] | None = None, plugin: Path | None = None) -
         status.note = "FM27 в библиотеках Steam не найдена."
         return status
     want = _sha(plugin)
+    version = bundled_version(plugin)
     for g in games:
         if not (g / "BepInEx" / "plugins").is_dir():
             status.games.append(GameInstall(str(g), False, "no_bepinex",
                                             "Нет BepInEx — установите его (проще всего вместе с FM27 Exporter)."))
             continue
         dst = g / PLUGIN_DIR / PLUGIN_NAME
+        stamp = dst.parent / "VERSION"
+        installed = stamp.read_text(encoding="utf-8").strip() if stamp.exists() and dst.exists() else None
+        if installed and version and _ver(installed) > _ver(version):
+            # Не откатываем: в игре плагин новее, чем в этой сборке помощника (например, поставлен вручную).
+            status.games.append(GameInstall(str(g), True, "current",
+                                            f"В игре плагин {installed} — новее встроенного {version}, оставляю."))
+            continue
         if dst.exists() and _sha(dst) == want:
             status.games.append(GameInstall(str(g), True, "current", "Плагин актуален."))
             continue
@@ -115,6 +133,8 @@ def ensure_plugin(games: list[Path] | None = None, plugin: Path | None = None) -
             tmp = dst.with_suffix(".new")
             shutil.copyfile(plugin, tmp)
             tmp.replace(dst)
+            if version:
+                stamp.write_text(version, encoding="utf-8")
             status.games.append(GameInstall(str(g), True, "updated" if existed else "installed",
                                             "Плагин обновлён." if existed else "Плагин установлен."))
         except PermissionError:

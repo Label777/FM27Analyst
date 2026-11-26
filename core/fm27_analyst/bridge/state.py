@@ -13,7 +13,7 @@ from typing import Any
 
 from .gamedate import find_game_date
 
-COMMANDS = {"grab_table", "screen", "tables", "explore"}
+COMMANDS = {"grab_table", "screen", "tables", "explore", "sniff"}
 ONLINE_SECONDS = 4.0  # плагин опрашивает раз в секунду; 4 с тишины — связи нет
 
 

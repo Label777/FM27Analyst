@@ -18,6 +18,7 @@ PY
 if [ -n "${GAME:-}" ]; then
   (cd bridge && dotnet build src/FM27Bridge -c Release "-p:Game=$GAME" -v q -nologo)
   cp bridge/src/FM27Bridge/bin/Release/net6.0/FM27AnalystBridge.dll core/fm27_analyst/data/plugin/
+  grep -oP 'Version = "\K[^"]+' bridge/src/FM27Bridge/Plugin.cs > core/fm27_analyst/data/plugin/VERSION
 fi
 (cd core && python3 -m pytest -q)
 (cd app && npx tsc --noEmit -p .)

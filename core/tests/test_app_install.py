@@ -95,3 +95,22 @@ def test_update_check():
 def test_installer_only_from_own_releases():
     with pytest.raises(ValueError):
         updater.download_and_run("https://evil.example/setup.exe", fetch=lambda u, timeout=0: b"")
+
+
+def test_never_downgrades_plugin(steam, tmp_path):
+    _, demo = steam
+    src = tmp_path / "bundle"
+    src.mkdir()
+    dll = src / "FM27AnalystBridge.dll"
+    dll.write_bytes(b"new")
+    (src / "VERSION").write_text("0.3.0", encoding="utf-8")
+    assert plugin_install.ensure_plugin([demo], dll).games[0].plugin == "installed"
+    target = demo / "BepInEx" / "plugins" / "FM27AnalystBridge"
+    assert (target / "VERSION").read_text(encoding="utf-8") == "0.3.0"
+    old = tmp_path / "old"
+    old.mkdir()
+    (old / "FM27AnalystBridge.dll").write_bytes(b"old")
+    (old / "VERSION").write_text("0.2.1", encoding="utf-8")
+    st = plugin_install.ensure_plugin([demo], old / "FM27AnalystBridge.dll")
+    assert st.games[0].plugin == "current" and "новее" in st.games[0].message
+    assert (target / "FM27AnalystBridge.dll").read_bytes() == b"new"

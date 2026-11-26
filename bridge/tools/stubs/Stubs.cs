@@ -231,4 +231,13 @@ namespace FM27Bridge
     {
         public static string Run(out string summary) { summary = ""; return ""; }
     }
+
+    internal static class Sniffer
+    {
+        public static bool Active => false;
+        public static string? File => null;
+        public static string Start(float seconds) => "";
+        public static string? Tick() => null;
+        public static string Stop() => "";
+    }
 }

@@ -33,6 +33,7 @@ namespace FM27Bridge
         private float _nextAuto;
         private string _lastAutoHash = "";
         private bool _slowWarned;
+        private string? _sniffCommand;
 
         public Controller()
         {
@@ -49,7 +50,12 @@ namespace FM27Bridge
             Plugin.Logger.LogInfo($"Мост запущен, подключаюсь к {Plugin.CoreUrl.Value}.");
         }
 
-        public void Dispose() => _client?.Dispose();
+        public void Dispose()
+        {
+            if (Sniffer.Active)
+                Sniffer.Stop();
+            _client?.Dispose();
+        }
 
         public void Update()
         {
@@ -58,6 +64,13 @@ namespace FM27Bridge
                 return;
             try
             {
+                var sniffDone = Sniffer.Tick();
+                if (sniffDone != null)
+                {
+                    Plugin.Logger.LogInfo($"{sniffDone} → {Sniffer.File}");
+                    client.Send("api/bridge/result", new ResultPayload { CommandId = _sniffCommand, Ok = true, Message = sniffDone, Detail = Sniffer.File });
+                    Show("FM27 Analyst: " + sniffDone, MessageSeconds);
+                }
                 if (_grab != null)
                 {
                     _grab.Tick();
@@ -122,6 +135,13 @@ namespace FM27Bridge
                         });
                     }
                     client.Send("api/bridge/tables", list);
+                    break;
+                case "sniff":
+                    var started = Sniffer.Start(60f);
+                    _sniffCommand = cmd.Id;
+                    Plugin.Logger.LogInfo(started);
+                    Show("FM27 Analyst: " + started, MessageSeconds);
+                    client.Send("api/bridge/result", new ResultPayload { CommandId = null, Ok = true, Message = started });
                     break;
                 case "explore":
                     Show("FM27 Analyst: разведка движка…", 3f);

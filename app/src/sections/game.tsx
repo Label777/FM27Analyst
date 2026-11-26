@@ -110,6 +110,10 @@ export function GameSection() {
                 title="Для разработки: выгрузить справочник типов данных движка FM27 (что можно читать из базы)">
                 Разведка движка
               </button>
+              <button className="btn btn--ghost" onClick={() => bridgeActions.request("sniff")}
+                title="Для разработки: 60 секунд записывать, какие данные интерфейс игры запрашивает у движка. В это время откройте профиль игрока.">
+                Запись обмена (60 с)
+              </button>
             </div>
             {s.bridgeNote && <div className="toast toast--info" onClick={bridgeActions.clearNote}>Игра: {s.bridgeNote}</div>}
             {b && b.tables_on_screen.length > 0 && (

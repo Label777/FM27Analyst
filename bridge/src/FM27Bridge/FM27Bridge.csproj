@@ -20,7 +20,7 @@
     <GenerateRuntimeConfigurationFiles>false</GenerateRuntimeConfigurationFiles>
     <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
     <DebugType>embedded</DebugType>
-    <Version>0.2.1</Version>
+    <Version>0.3.0</Version>
     <NoWarn>$(NoWarn);CA1416</NoWarn>
     <BepCore Condition="'$(BepCore)' == ''">$(Game)/BepInEx/core</BepCore>
     <Interop Condition="'$(Interop)' == ''">$(Game)/BepInEx/interop</Interop>
@@ -53,6 +53,10 @@
     <Reference Include="$(Interop)/UnityEngine.InputForUIModule.dll" Private="false" />
     <Reference Include="$(Interop)/SI.Bindable.dll" Private="false" />
     <Reference Include="$(Interop)/SI.Bindable.Reference.Core.dll" Private="false" />
+    <Reference Include="$(Interop)/FM.GamePlugin.dll" Private="false" />
+    <Reference Include="$(Interop)/SI.Interop.dll" Private="false" />
+    <Reference Include="$(Interop)/SI.Core.dll" Private="false" />
+    <Reference Include="$(BepCore)/0Harmony.dll" Private="false" />
     <Reference Include="$(Interop)/SI.UI.dll" Private="false" />
   </ItemGroup>
 </Project>
