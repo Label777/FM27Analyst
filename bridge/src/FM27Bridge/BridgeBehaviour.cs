@@ -137,7 +137,8 @@ namespace FM27Bridge
                     client.Send("api/bridge/tables", list);
                     break;
                 case "sniff":
-                    var started = Sniffer.Start(60f);
+                case "probe":
+                    var started = cmd.Type == "probe" ? Sniffer.StartProbe(25f) : Sniffer.Start(60f);
                     _sniffCommand = cmd.Id;
                     Plugin.Logger.LogInfo(started);
                     Show("FM27 Analyst: " + started, MessageSeconds);

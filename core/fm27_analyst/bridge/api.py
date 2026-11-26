@@ -21,7 +21,7 @@ from .state import BridgeState, as_rows
 
 
 class RequestIn(BaseModel):
-    type: Literal["grab_table", "screen", "tables", "explore", "sniff"]
+    type: Literal["grab_table", "screen", "tables", "explore", "sniff", "probe"]
     table_index: int | None = None
 
 

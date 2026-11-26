@@ -237,6 +237,7 @@ namespace FM27Bridge
         public static bool Active => false;
         public static string? File => null;
         public static string Start(float seconds) => "";
+        public static string StartProbe(float seconds) => "";
         public static string? Tick() => null;
         public static string Stop() => "";
     }

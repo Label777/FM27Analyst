@@ -1,6 +1,6 @@
 [package]
 name = "fm27-analyst"
-version = "0.3.0"
+version = "0.3.1"
 description = "FM27 Real-Time Analyst — AI-помощник главного тренера для Football Manager 27"
 edition = "2021"
 

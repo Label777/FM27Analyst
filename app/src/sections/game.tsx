@@ -114,6 +114,10 @@ export function GameSection() {
                 title="Для разработки: 60 секунд записывать, какие данные интерфейс игры запрашивает у движка. В это время откройте профиль игрока.">
                 Запись обмена (60 с)
               </button>
+              <button className="btn btn--ghost" onClick={() => bridgeActions.request("probe")}
+                title="Для разработки: 25 секунд записи + собственный запрос к движку о последнем показанном игроке. Сразу откройте профиль игрока.">
+                Проба запроса (25 с)
+              </button>
             </div>
             {s.bridgeNote && <div className="toast toast--info" onClick={bridgeActions.clearNote}>Игра: {s.bridgeNote}</div>}
             {b && b.tables_on_screen.length > 0 && (

@@ -163,7 +163,7 @@ setInterval(() => {
 }, 5000);
 
 export const bridgeActions = {
-  request: async (type: "grab_table" | "screen" | "tables" | "explore" | "sniff") => {
+  request: async (type: "grab_table" | "screen" | "tables" | "explore" | "sniff" | "probe") => {
     set({ bridgeNote: null });
     return guard(api.bridgeRequest(type));
   },
