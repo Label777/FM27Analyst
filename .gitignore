@@ -1,0 +1,14 @@
+node_modules/
+dist/
+build/
+app/src-tauri/target/
+app/src-tauri/gen/
+app/src-tauri/fm27-core.exe
+*.tsbuildinfo
+__pycache__/
+*.egg-info/
+.pytest_cache/
+dataset/
+.env
+bridge/**/bin/
+bridge/**/obj/

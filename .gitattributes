@@ -1,0 +1,4 @@
+# Файлы для Windows храним байт в байт (CRLF, BOM): их скачивает автообновление.
+*.bat -text
+*.ps1 -text
+release/** -text

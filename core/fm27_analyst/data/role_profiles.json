@@ -1,0 +1,57 @@
+{
+  "_comment": "Профили позиций помощника (не официальные роли FM27). Веса 1–3 — насколько атрибут важен для задачи. Модификаторы стиля добавляют вес атрибутам под тактику клуба.",
+  "profiles": [
+    {"id": "gk_shot_stopper", "name_ru": "Вратарь-шотстоппер", "group": "gk", "positions": ["GK"],
+     "weights": {"reflexes": 3, "one_on_ones": 2, "handling": 2, "aerial_reach": 2, "positioning": 2, "command_of_area": 1, "composure": 1, "concentration": 1}},
+    {"id": "gk_sweeper", "name_ru": "Вратарь, играющий на выходах и ногами", "group": "gk", "positions": ["GK"],
+     "weights": {"rushing_out": 3, "kicking": 2, "passing": 2, "anticipation": 2, "reflexes": 2, "one_on_ones": 2, "first_touch": 1, "acceleration": 1}},
+    {"id": "cb_stopper", "name_ru": "Центральный защитник-разрушитель", "group": "cb", "positions": ["D_C"],
+     "weights": {"marking": 3, "tackling": 3, "heading": 3, "positioning": 3, "strength": 2, "jumping_reach": 2, "bravery": 2, "concentration": 2, "anticipation": 2}},
+    {"id": "cb_ball_playing", "name_ru": "Центральный защитник с хорошим пасом", "group": "cb", "positions": ["D_C"],
+     "weights": {"passing": 3, "composure": 3, "first_touch": 2, "marking": 2, "tackling": 2, "positioning": 2, "anticipation": 2, "decisions": 2, "vision": 1, "pace": 1}},
+    {"id": "fb_attacking", "name_ru": "Атакующий крайний защитник", "group": "fb", "positions": ["D_L", "D_R", "WB_L", "WB_R"],
+     "weights": {"stamina": 3, "work_rate": 3, "crossing": 3, "acceleration": 2, "pace": 2, "tackling": 2, "off_the_ball": 2, "dribbling": 1, "positioning": 1, "teamwork": 1}},
+    {"id": "fb_defensive", "name_ru": "Оборонительный крайний защитник", "group": "fb", "positions": ["D_L", "D_R"],
+     "weights": {"tackling": 3, "marking": 3, "positioning": 3, "concentration": 2, "anticipation": 2, "pace": 2, "stamina": 1, "strength": 1}},
+    {"id": "dm_screen", "name_ru": "Опорник-разрушитель", "group": "dm", "positions": ["DM", "M_C"],
+     "weights": {"positioning": 3, "tackling": 3, "anticipation": 3, "marking": 2, "concentration": 2, "decisions": 2, "teamwork": 2, "strength": 1, "stamina": 1}},
+    {"id": "dm_playmaker", "name_ru": "Опорник-распасовщик", "group": "dm", "positions": ["DM", "M_C"],
+     "weights": {"passing": 3, "vision": 3, "decisions": 3, "first_touch": 2, "composure": 2, "technique": 2, "teamwork": 1, "anticipation": 1}},
+    {"id": "cm_box_to_box", "name_ru": "Полузащитник «от штрафной до штрафной»", "group": "cm", "positions": ["M_C", "DM"],
+     "weights": {"stamina": 3, "work_rate": 3, "passing": 2, "tackling": 2, "off_the_ball": 2, "decisions": 2, "teamwork": 2, "acceleration": 1, "finishing": 1, "long_shots": 1}},
+    {"id": "am_creator", "name_ru": "Атакующий полузащитник-креативщик", "group": "am", "positions": ["AM_C", "M_C"],
+     "weights": {"vision": 3, "passing": 3, "technique": 3, "first_touch": 2, "decisions": 2, "composure": 2, "flair": 2, "off_the_ball": 1, "dribbling": 1}},
+    {"id": "winger_wide", "name_ru": "Классический вингер (рабочая нога по флангу)", "group": "winger", "positions": ["AM_L", "AM_R", "M_L", "M_R"], "foot": "natural",
+     "weights": {"crossing": 3, "dribbling": 3, "acceleration": 3, "pace": 3, "technique": 2, "agility": 1, "off_the_ball": 1, "stamina": 1, "work_rate": 1, "flair": 1}},
+    {"id": "winger_inverted", "name_ru": "Инвертированный вингер (смещается в центр)", "group": "winger", "positions": ["AM_L", "AM_R", "M_L", "M_R"], "foot": "inverted",
+     "weights": {"dribbling": 3, "acceleration": 3, "finishing": 2, "technique": 2, "first_touch": 2, "off_the_ball": 2, "flair": 2, "agility": 2, "pace": 2, "long_shots": 1, "composure": 1}},
+    {"id": "st_poacher", "name_ru": "Нападающий-завершитель", "group": "st", "positions": ["ST"],
+     "weights": {"finishing": 3, "off_the_ball": 3, "anticipation": 3, "composure": 2, "acceleration": 2, "first_touch": 1, "pace": 1}},
+    {"id": "st_target", "name_ru": "Таргетмен", "group": "st", "positions": ["ST"],
+     "weights": {"heading": 3, "strength": 3, "jumping_reach": 3, "first_touch": 2, "finishing": 2, "bravery": 2, "balance": 1, "teamwork": 1}},
+    {"id": "st_pressing", "name_ru": "Прессингующий нападающий", "group": "st", "positions": ["ST"],
+     "weights": {"work_rate": 3, "stamina": 3, "aggression": 2, "acceleration": 2, "finishing": 2, "off_the_ball": 2, "anticipation": 2, "teamwork": 2, "decisions": 1}}
+  ],
+  "style_modifiers": {
+    "high_line": {"name_ru": "высокая линия обороны", "groups": {"cb": {"pace": 2, "acceleration": 2, "anticipation": 1}, "fb": {"pace": 1}, "gk": {"rushing_out": 2}}},
+    "high_fullbacks": {"name_ru": "высокие крайние защитники", "groups": {"fb": {"stamina": 1, "crossing": 1, "work_rate": 1}, "dm": {"positioning": 1, "tackling": 1}, "cb": {"pace": 1, "anticipation": 1}}},
+    "high_press": {"name_ru": "высокий прессинг", "groups": {"st": {"work_rate": 1, "aggression": 1, "acceleration": 1}, "winger": {"work_rate": 1, "stamina": 1}, "am": {"work_rate": 1}, "cm": {"work_rate": 1, "stamina": 1}, "dm": {"stamina": 1}}},
+    "possession": {"name_ru": "игра в контроль мяча", "groups": {"cb": {"passing": 1, "composure": 1}, "dm": {"passing": 1, "first_touch": 1}, "cm": {"passing": 1, "first_touch": 1, "composure": 1}, "am": {"first_touch": 1}, "fb": {"passing": 1}}},
+    "counter": {"name_ru": "контратаки", "groups": {"winger": {"acceleration": 1, "pace": 1}, "st": {"pace": 1, "acceleration": 1}, "cm": {"vision": 1}, "am": {"vision": 1}}},
+    "low_block": {"name_ru": "низкий блок", "groups": {"cb": {"positioning": 1, "concentration": 1, "heading": 1}, "dm": {"positioning": 1, "concentration": 1}, "fb": {"marking": 1}}}
+  },
+  "formations": {
+    "4-2-3-1": [["GK", "GK"], ["D_L", "ЛЗ"], ["D_C", "ЦЗ"], ["D_C", "ЦЗ"], ["D_R", "ПЗ"], ["DM", "ОП"], ["DM", "ОП"], ["AM_L", "ЛВ"], ["AM_C", "АП"], ["AM_R", "ПВ"], ["ST", "Н"]],
+    "4-3-3": [["GK", "GK"], ["D_L", "ЛЗ"], ["D_C", "ЦЗ"], ["D_C", "ЦЗ"], ["D_R", "ПЗ"], ["DM", "ОП"], ["M_C", "ЦП"], ["M_C", "ЦП"], ["AM_L", "ЛВ"], ["AM_R", "ПВ"], ["ST", "Н"]],
+    "4-4-2": [["GK", "GK"], ["D_L", "ЛЗ"], ["D_C", "ЦЗ"], ["D_C", "ЦЗ"], ["D_R", "ПЗ"], ["M_L", "ЛП"], ["M_C", "ЦП"], ["M_C", "ЦП"], ["M_R", "ПП"], ["ST", "Н"], ["ST", "Н"]],
+    "4-1-4-1": [["GK", "GK"], ["D_L", "ЛЗ"], ["D_C", "ЦЗ"], ["D_C", "ЦЗ"], ["D_R", "ПЗ"], ["DM", "ОП"], ["M_L", "ЛП"], ["M_C", "ЦП"], ["M_C", "ЦП"], ["M_R", "ПП"], ["ST", "Н"]],
+    "3-5-2": [["GK", "GK"], ["D_C", "ЦЗ"], ["D_C", "ЦЗ"], ["D_C", "ЦЗ"], ["WB_L", "ЛКЗ"], ["DM", "ОП"], ["M_C", "ЦП"], ["M_C", "ЦП"], ["WB_R", "ПКЗ"], ["ST", "Н"], ["ST", "Н"]],
+    "3-4-3": [["GK", "GK"], ["D_C", "ЦЗ"], ["D_C", "ЦЗ"], ["D_C", "ЦЗ"], ["WB_L", "ЛКЗ"], ["M_C", "ЦП"], ["M_C", "ЦП"], ["WB_R", "ПКЗ"], ["AM_L", "ЛВ"], ["AM_R", "ПВ"], ["ST", "Н"]],
+    "3-2-4-1": [["GK", "GK"], ["D_C", "ЦЗ"], ["D_C", "ЦЗ"], ["D_C", "ЦЗ"], ["DM", "ОП"], ["DM", "ОП"], ["AM_L", "ЛВ"], ["AM_C", "АП"], ["AM_C", "АП"], ["AM_R", "ПВ"], ["ST", "Н"]]
+  },
+  "adjacent_positions": {
+    "AM_L": ["M_L", "WB_L"], "AM_R": ["M_R", "WB_R"], "M_L": ["AM_L", "WB_L", "D_L"], "M_R": ["AM_R", "WB_R", "D_R"],
+    "D_L": ["WB_L", "M_L"], "D_R": ["WB_R", "M_R"], "WB_L": ["D_L", "M_L"], "WB_R": ["D_R", "M_R"],
+    "DM": ["M_C", "D_C"], "M_C": ["DM", "AM_C"], "AM_C": ["M_C", "ST"], "ST": ["AM_C"], "D_C": ["DM"], "GK": []
+  }
+}

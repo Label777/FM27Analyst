@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Логика моста без Unity: собирается и тестируется где угодно, в плагин входит исходниками. -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../vendor/fm27-exporter/Core/CellText.cs" Link="Vendor/CellText.cs" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Плагин BepInEx 6 (IL2CPP) для FM27.
+       Ссылки берутся из папки BepInEx в установленной игре (её создаёт первый запуск с BepInEx):
+         <игра>/BepInEx/core     — BepInEx и Il2CppInterop
+         <игра>/BepInEx/interop  — сборки игры и Unity
+         <игра>/dotnet           — среда .NET 6, в которой работает BepInEx
+       Сборка: dotnet build -c Release -p:Game="C:/…/Football Manager 27" -->
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <!-- BepInEx запускает плагины в .NET 6: компилируем против его же библиотек, а не SDK. -->
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <NoStdLib>true</NoStdLib>
+    <AssemblyName>FM27AnalystBridge</AssemblyName>
+    <RootNamespace>FM27Bridge</RootNamespace>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <GenerateRuntimeConfigurationFiles>false</GenerateRuntimeConfigurationFiles>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <DebugType>embedded</DebugType>
+    <Version>0.1.1</Version>
+    <NoWarn>$(NoWarn);CA1416</NoWarn>
+    <BepCore Condition="'$(BepCore)' == ''">$(Game)/BepInEx/core</BepCore>
+    <Interop Condition="'$(Interop)' == ''">$(Game)/BepInEx/interop</Interop>
+    <DotnetRuntime Condition="'$(DotnetRuntime)' == ''">$(Game)/dotnet</DotnetRuntime>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../FM27Bridge.Core/*.cs" LinkBase="Core" />
+    <!-- Из FM27 Exporter (MIT) берём только чтение таблиц; запись файлов мосту не нужна. -->
+    <Compile Include="../../vendor/fm27-exporter/Core/*.cs" Exclude="../../vendor/fm27-exporter/Core/*Writer.cs" LinkBase="Vendor/Core" />
+    <Compile Include="../../vendor/fm27-exporter/Plugin/*.cs" LinkBase="Vendor/Plugin" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Сборки среды .NET 6 из папки игры (это реализации, а не reference-сборки, поэтому берём все управляемые). -->
+    <Reference Include="$(DotnetRuntime)/System.*.dll;$(DotnetRuntime)/netstandard.dll;$(DotnetRuntime)/mscorlib.dll" Exclude="$(DotnetRuntime)/*.Native.dll" Private="false" />
+    <Reference Include="$(BepCore)/BepInEx.Core.dll" Private="false" />
+    <Reference Include="$(BepCore)/BepInEx.Unity.IL2CPP.dll" Private="false" />
+    <Reference Include="$(BepCore)/BepInEx.Unity.Common.dll" Private="false" />
+    <Reference Include="$(BepCore)/Il2CppInterop.Runtime.dll" Private="false" />
+    <Reference Include="$(BepCore)/Il2CppInterop.Common.dll" Private="false" />
+    <Reference Include="$(Interop)/Il2Cppmscorlib.dll" Private="false" />
+    <Reference Include="$(Interop)/UnityEngine.dll" Private="false" />
+    <Reference Include="$(Interop)/UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="$(Interop)/UnityEngine.UIElementsModule.dll" Private="false" />
+    <Reference Include="$(Interop)/UnityEngine.IMGUIModule.dll" Private="false" />
+    <Reference Include="$(Interop)/UnityEngine.TextRenderingModule.dll" Private="false" />
+    <Reference Include="$(Interop)/UnityEngine.TextCoreTextEngineModule.dll" Private="false" />
+    <Reference Include="$(Interop)/UnityEngine.HierarchyCoreModule.dll" Private="false" />
+    <Reference Include="$(Interop)/UnityEngine.SharedInternalsModule.dll" Private="false" />
+    <Reference Include="$(Interop)/UnityEngine.PropertiesModule.dll" Private="false" />
+    <Reference Include="$(Interop)/UnityEngine.InputForUIModule.dll" Private="false" />
+    <Reference Include="$(Interop)/SI.Bindable.dll" Private="false" />
+    <Reference Include="$(Interop)/SI.UI.dll" Private="false" />
+  </ItemGroup>
+</Project>

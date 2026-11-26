@@ -1,0 +1,505 @@
+{
+ "_comment": "Сопоставление заголовков выгрузок FM27 с внутренними полями. Английские сокращения — как в FM24 Web Page / FM27 Exporter. Русские варианты — рабочие, сверить по реальной выгрузке русской версии. Сравнение без учёта регистра и пробелов.",
+ "fields": {
+  "uid": [
+   "UID",
+   "Unique ID",
+   "Уникальный ID",
+   "ID"
+  ],
+  "name": [
+   "Name",
+   "Player",
+   "Имя",
+   "Игрок",
+   "Футболист"
+  ],
+  "age": [
+   "Age",
+   "Возраст",
+   "Возр."
+  ],
+  "position": [
+   "Position",
+   "Positions",
+   "Позиция",
+   "Позиции",
+   "Поз.",
+   "Амплуа"
+  ],
+  "club": [
+   "Club",
+   "Team",
+   "Клуб",
+   "Команда"
+  ],
+  "nationality": [
+   "Nationality",
+   "Нац.",
+   "Национальность",
+   "Гражданство"
+  ],
+  "division": [
+   "Division",
+   "League",
+   "Дивизион",
+   "Лига",
+   "Турнир"
+  ],
+  "value": [
+   "Transfer Value",
+   "Value",
+   "Asking Price",
+   "Стоимость",
+   "Трансферная стоимость",
+   "Цена"
+  ],
+  "wage": [
+   "Wage",
+   "Salary",
+   "Зарплата",
+   "З/п",
+   "Оклад"
+  ],
+  "contract": [
+   "Expires",
+   "Contract Expires",
+   "Контракт до",
+   "Окончание контракта",
+   "Контракт"
+  ],
+  "current_stars": [
+   "CA",
+   "Ability",
+   "Current Ability",
+   "Уровень",
+   "Текущий уровень",
+   "Способности"
+  ],
+  "potential_stars": [
+   "PA",
+   "Potential",
+   "Potential Ability",
+   "Потенциал"
+  ],
+  "foot_left": [
+   "Left Foot",
+   "Левая нога",
+   "Лев. нога"
+  ],
+  "foot_right": [
+   "Right Foot",
+   "Правая нога",
+   "Прав. нога"
+  ],
+  "personality": [
+   "Personality",
+   "Характер"
+  ],
+  "on_loan": [
+   "On Loan From",
+   "Loaned From",
+   "В аренде из"
+  ],
+  "height": [
+   "Height",
+   "Рост"
+  ]
+ },
+ "attributes": {
+  "corners": [
+   "Cor",
+   "Corners",
+   "Угловые"
+  ],
+  "crossing": [
+   "Cro",
+   "Crossing",
+   "Навесы",
+   "Навес"
+  ],
+  "dribbling": [
+   "Dri",
+   "Dribbling",
+   "Дриблинг"
+  ],
+  "finishing": [
+   "Fin",
+   "Finishing",
+   "Завершение",
+   "Удар"
+  ],
+  "first_touch": [
+   "Fir",
+   "First Touch",
+   "Первое касание",
+   "Обработка",
+   "Прием мяча"
+  ],
+  "free_kicks": [
+   "Fre",
+   "Free Kick Taking",
+   "Штрафные"
+  ],
+  "heading": [
+   "Hea",
+   "Heading",
+   "Игра головой"
+  ],
+  "long_shots": [
+   "Lon",
+   "Long Shots",
+   "Дальние удары"
+  ],
+  "long_throws": [
+   "L Th",
+   "Long Throws",
+   "Вбрасывание",
+   "Дальние вбрасывания"
+  ],
+  "marking": [
+   "Mar",
+   "Marking",
+   "Опека",
+   "Персональная опека"
+  ],
+  "passing": [
+   "Pas",
+   "Passing",
+   "Пас",
+   "Передачи"
+  ],
+  "penalty_taking": [
+   "Pen",
+   "Penalty Taking",
+   "Пенальти"
+  ],
+  "tackling": [
+   "Tck",
+   "Tackling",
+   "Отбор"
+  ],
+  "technique": [
+   "Tec",
+   "Technique",
+   "Техника"
+  ],
+  "aggression": [
+   "Agg",
+   "Aggression",
+   "Агрессивность",
+   "Агрессия"
+  ],
+  "anticipation": [
+   "Ant",
+   "Anticipation",
+   "Предвидение",
+   "Чтение игры"
+  ],
+  "bravery": [
+   "Bra",
+   "Bravery",
+   "Смелость"
+  ],
+  "composure": [
+   "Cmp",
+   "Composure",
+   "Хладнокровие"
+  ],
+  "concentration": [
+   "Cnt",
+   "Concentration",
+   "Концентрация"
+  ],
+  "decisions": [
+   "Dec",
+   "Decisions",
+   "Решения",
+   "Принятие решений"
+  ],
+  "determination": [
+   "Det",
+   "Determination",
+   "Целеустремлённость",
+   "Целеустремленность",
+   "Настойчивость"
+  ],
+  "flair": [
+   "Fla",
+   "Flair",
+   "Креативность",
+   "Импровизация"
+  ],
+  "leadership": [
+   "Ldr",
+   "Leadership",
+   "Лидерство"
+  ],
+  "off_the_ball": [
+   "OtB",
+   "Off the Ball",
+   "Игра без мяча"
+  ],
+  "positioning": [
+   "Positioning",
+   "Выбор позиции",
+   "Позиционирование"
+  ],
+  "teamwork": [
+   "Tea",
+   "Teamwork",
+   "Командная игра"
+  ],
+  "vision": [
+   "Vis",
+   "Vision",
+   "Видение поля"
+  ],
+  "work_rate": [
+   "Wor",
+   "Work Rate",
+   "Работоспособность"
+  ],
+  "acceleration": [
+   "Acc",
+   "Acceleration",
+   "Ускорение"
+  ],
+  "agility": [
+   "Agi",
+   "Agility",
+   "Ловкость"
+  ],
+  "balance": [
+   "Bal",
+   "Balance",
+   "Равновесие",
+   "Баланс"
+  ],
+  "jumping_reach": [
+   "Jum",
+   "Jumping Reach",
+   "Прыгучесть"
+  ],
+  "natural_fitness": [
+   "Natural Fitness",
+   "Природная форма",
+   "Физическая готовность"
+  ],
+  "pace": [
+   "Pac",
+   "Pace",
+   "Скорость"
+  ],
+  "stamina": [
+   "Sta",
+   "Stamina",
+   "Выносливость"
+  ],
+  "strength": [
+   "Str",
+   "Strength",
+   "Сила"
+  ],
+  "aerial_reach": [
+   "Aer",
+   "Aerial Reach",
+   "Игра на выходах"
+  ],
+  "command_of_area": [
+   "Cmd",
+   "Command of Area",
+   "Контроль штрафной"
+  ],
+  "communication": [
+   "Com",
+   "Communication",
+   "Коммуникация"
+  ],
+  "eccentricity": [
+   "Ecc",
+   "Eccentricity",
+   "Эксцентричность"
+  ],
+  "handling": [
+   "Han",
+   "Handling",
+   "Игра руками"
+  ],
+  "kicking": [
+   "Kic",
+   "Kicking",
+   "Выбивание"
+  ],
+  "one_on_ones": [
+   "1v1",
+   "One on Ones",
+   "Один на один"
+  ],
+  "punching": [
+   "Pun",
+   "Punching (Tendency)",
+   "Отбивание кулаками"
+  ],
+  "reflexes": [
+   "Ref",
+   "Reflexes",
+   "Реакция"
+  ],
+  "rushing_out": [
+   "TRO",
+   "Rushing Out (Tendency)",
+   "Выходы из ворот"
+  ],
+  "throwing": [
+   "Thr",
+   "Throwing",
+   "Ввод мяча рукой"
+  ]
+ },
+ "attribute_groups": {
+  "technical": [
+   "corners",
+   "crossing",
+   "dribbling",
+   "finishing",
+   "first_touch",
+   "free_kicks",
+   "heading",
+   "long_shots",
+   "long_throws",
+   "marking",
+   "passing",
+   "penalty_taking",
+   "tackling",
+   "technique"
+  ],
+  "mental": [
+   "aggression",
+   "anticipation",
+   "bravery",
+   "composure",
+   "concentration",
+   "decisions",
+   "determination",
+   "flair",
+   "leadership",
+   "off_the_ball",
+   "positioning",
+   "teamwork",
+   "vision",
+   "work_rate"
+  ],
+  "physical": [
+   "acceleration",
+   "agility",
+   "balance",
+   "jumping_reach",
+   "natural_fitness",
+   "pace",
+   "stamina",
+   "strength"
+  ],
+  "goalkeeping": [
+   "aerial_reach",
+   "command_of_area",
+   "communication",
+   "eccentricity",
+   "handling",
+   "kicking",
+   "one_on_ones",
+   "punching",
+   "reflexes",
+   "rushing_out",
+   "throwing"
+  ]
+ },
+ "ambiguous": {
+  "_comment": "Один заголовок — два смысла: решаем по значениям (числа 1–20 → атрибут)",
+  "pos": {
+   "numeric": "positioning",
+   "text": "position"
+  },
+  "nat": {
+   "numeric": "natural_fitness",
+   "text": "nationality"
+  }
+ },
+ "status": {
+  "_comment": "Текущее состояние игрока (вид «Обзор» состава FM27). Хранится как в игре, без пересчёта. Русские названия сверены с FM27 Demo 27.1.1.",
+  "condition": [
+   "Cond",
+   "Condition",
+   "Сост",
+   "Состояние",
+   "Физ. состояние"
+  ],
+  "sharpness": [
+   "Sharp",
+   "Match Sharpness",
+   "Гот",
+   "Готовность",
+   "Игровая готовность"
+  ],
+  "morale": [
+   "Mor",
+   "Morale",
+   "Нас",
+   "Настроение",
+   "Мораль"
+  ],
+  "playing_time": [
+   "Playing Time Happiness",
+   "Довольство временем в игре"
+  ],
+  "form": [
+   "Form",
+   "Форма"
+  ],
+  "apps": [
+   "Apps",
+   "Appearances",
+   "Игры",
+   "Матчи"
+  ],
+  "goals": [
+   "Gls",
+   "Goals",
+   "Гол",
+   "Голы"
+  ],
+  "assists": [
+   "Ast",
+   "Assists",
+   "ГПас",
+   "Гол. пасы",
+   "Голевые передачи"
+  ],
+  "avg_rating": [
+   "Av Rat",
+   "Average Rating",
+   "Сред.",
+   "Ср. оценка",
+   "Средняя оценка"
+  ],
+  "yellow": [
+   "Yel",
+   "Yellow Cards",
+   "Жк",
+   "ЖК"
+  ],
+  "red": [
+   "Red",
+   "Red Cards",
+   "Кк",
+   "КК"
+  ]
+ },
+ "ignore": [
+  "Выбран",
+  "Selected",
+  "Инф",
+  "Inf",
+  "Info"
+ ]
+}

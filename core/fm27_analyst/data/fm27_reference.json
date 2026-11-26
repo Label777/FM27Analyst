@@ -1,0 +1,229 @@
+{
+  "_comment": "Справочник настроек FM27, которые AI имеет право советовать. Сюда попадает только то, что подтверждено официальными материалами или снято с экрана игры. name_ru — рабочий перевод: сверить с русской локализацией FM27 по скриншотам (verified_ru=false, пока не сверено). Роли игроков НЕ хранятся здесь: AI предлагает только роли, которые видит в данных текущего сейва.",
+  "source": "https://www.footballmanager.com/node/1108",
+  "tactical_tweaks": [
+    {
+      "id": "exploit_width",
+      "scope": "team",
+      "name_en": "Exploit Width",
+      "name_ru": "Использовать ширину",
+      "verified_ru": false,
+      "effect": "Больше атак через фланги, растягивает низкий блок",
+      "risk": "Меньше игроков в центре при потере мяча"
+    },
+    {
+      "id": "increase_urgency",
+      "scope": "team",
+      "name_en": "Increase Urgency",
+      "name_ru": "Повысить срочность",
+      "verified_ru": false,
+      "effect": "Быстрее и вертикальнее продвижение мяча",
+      "risk": "Больше потерь, меньше контроля"
+    },
+    {
+      "id": "play_longer_passes",
+      "scope": "team",
+      "name_en": "Play Longer Passes",
+      "name_ru": "Играть длинными передачами",
+      "verified_ru": false,
+      "effect": "Обход прессинга, быстрый выход за спину",
+      "risk": "Ниже точность передач и владение"
+    },
+    {
+      "id": "reduce_press",
+      "scope": "team",
+      "name_en": "Reduce the Press",
+      "name_ru": "Снизить прессинг",
+      "verified_ru": false,
+      "effect": "Экономия сил, компактнее оборона",
+      "risk": "Соперник свободнее начинает атаки"
+    },
+    {
+      "id": "swap_wingers",
+      "scope": "individual",
+      "name_en": "Swap Wingers' Sides",
+      "name_ru": "Поменять вингеров флангами",
+      "verified_ru": false,
+      "effect": "Другие сочетания сильной ноги и соперника по флангу",
+      "risk": "Вингеры на непривычной стороне"
+    },
+    {
+      "id": "goalkeeper_forward",
+      "scope": "individual",
+      "name_en": "Send Goalkeeper Forward",
+      "name_ru": "Вратарь в штрафную соперника",
+      "verified_ru": false,
+      "effect": "Лишний игрок на последних стандартах",
+      "risk": "Пустые ворота при контратаке"
+    }
+  ],
+  "box_instructions": [
+    {
+      "id": "arrive_late",
+      "name_ru": "Приходить в штрафную позже",
+      "verified_ru": false
+    },
+    {
+      "id": "attack_defensive_line",
+      "name_ru": "Атаковать линию защиты",
+      "verified_ru": false
+    },
+    {
+      "id": "run_near_post",
+      "name_ru": "Забегание на ближнюю штангу",
+      "verified_ru": false
+    },
+    {
+      "id": "run_far_post",
+      "name_ru": "Забегание на дальнюю штангу",
+      "verified_ru": false
+    },
+    {
+      "id": "run_central",
+      "name_ru": "Забегание в центр штрафной",
+      "verified_ru": false
+    }
+  ],
+  "substitution_profiles": {
+    "_comment": "Какие атрибуты важны при замене по линиям (атрибуты как в профиле игрока, 1–20). Ключи — внутренние, подписи — по-русски.",
+    "winger": [
+      "acceleration",
+      "dribbling",
+      "work_rate",
+      "pace",
+      "crossing"
+    ],
+    "fullback": [
+      "acceleration",
+      "stamina",
+      "work_rate",
+      "tackling",
+      "positioning"
+    ],
+    "central_midfielder": [
+      "passing",
+      "stamina",
+      "work_rate",
+      "decisions",
+      "vision"
+    ],
+    "defensive_midfielder": [
+      "tackling",
+      "positioning",
+      "anticipation",
+      "stamina",
+      "decisions"
+    ],
+    "centre_back": [
+      "marking",
+      "anticipation",
+      "tackling",
+      "heading",
+      "positioning"
+    ],
+    "striker": [
+      "finishing",
+      "off_the_ball",
+      "anticipation",
+      "acceleration",
+      "composure"
+    ]
+  },
+  "attribute_ru": {
+    "acceleration": "Ускорение",
+    "dribbling": "Дриблинг",
+    "work_rate": "Работоспособность",
+    "pace": "Скорость",
+    "crossing": "Навес",
+    "stamina": "Выносливость",
+    "tackling": "Отбор",
+    "positioning": "Выбор позиции",
+    "passing": "Пас",
+    "decisions": "Решения",
+    "vision": "Видение поля",
+    "anticipation": "Предвидение",
+    "marking": "Опека",
+    "heading": "Игра головой",
+    "finishing": "Завершение",
+    "off_the_ball": "Игра без мяча",
+    "composure": "Хладнокровие",
+    "flair": "Креативность",
+    "corners": "Угловые",
+    "first_touch": "Первое касание",
+    "free_kicks": "Штрафные",
+    "long_shots": "Дальние удары",
+    "long_throws": "Вбрасывания",
+    "penalty_taking": "Пенальти",
+    "technique": "Техника",
+    "aggression": "Агрессивность",
+    "bravery": "Смелость",
+    "concentration": "Концентрация",
+    "determination": "Целеустремлённость",
+    "leadership": "Лидерство",
+    "teamwork": "Командная игра",
+    "agility": "Ловкость",
+    "balance": "Равновесие",
+    "jumping_reach": "Прыгучесть",
+    "natural_fitness": "Природная форма",
+    "strength": "Сила",
+    "aerial_reach": "Игра на выходах",
+    "command_of_area": "Контроль штрафной",
+    "communication": "Коммуникация",
+    "eccentricity": "Эксцентричность",
+    "handling": "Игра руками",
+    "kicking": "Выбивание",
+    "one_on_ones": "Один на один",
+    "punching": "Отбивание кулаками",
+    "reflexes": "Реакция",
+    "rushing_out": "Выходы из ворот",
+    "throwing": "Ввод рукой"
+  },
+  "position_groups": {
+    "_comment": "Подписи позиций в русской версии FM27 — сверить по скриншотам.",
+    "winger": [
+      "ЛП",
+      "ПП",
+      "ЛВ",
+      "ПВ",
+      "ЛАП",
+      "ПАП",
+      "AML",
+      "AMR",
+      "ML",
+      "MR",
+      "LW",
+      "RW"
+    ],
+    "fullback": [
+      "ЛЗ",
+      "ПЗ",
+      "ЛКЗ",
+      "ПКЗ",
+      "DL",
+      "DR",
+      "WBL",
+      "WBR"
+    ],
+    "central_midfielder": [
+      "ЦП",
+      "MC",
+      "CM"
+    ],
+    "defensive_midfielder": [
+      "ОП",
+      "DM",
+      "CDM"
+    ],
+    "centre_back": [
+      "ЦЗ",
+      "DC",
+      "CB"
+    ],
+    "striker": [
+      "Ф",
+      "ЦФ",
+      "ST",
+      "CF"
+    ]
+  }
+}
